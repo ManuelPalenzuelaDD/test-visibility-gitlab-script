@@ -1,6 +1,4 @@
-!#/bin/sh
-
-export 
+!#/bin/bash
 
 mkdir .datadog
 
