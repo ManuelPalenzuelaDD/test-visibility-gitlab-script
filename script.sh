@@ -12,7 +12,7 @@ echo "export DD_SITE=${DD_SITE}"
 echo "export DD_SERVICE=${DD_SERVICE}"
 echo "export DD_API_KEY=${DD_API_KEY}"
 
-url="https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/install_test_visibility.sh"  #TODO: Change once we fix the bug with the original install script
+url="https://raw.githubusercontent.com/DataDog/test-visibility-install-script/4b0d47cc7308a176c4a2d3f5d629418fc0fd8590/install_test_visibility.sh"  #TODO: Change once we fix the bug with the original install script
 filepath="install_test_visibility.sh"
 
 if command -v curl >/dev/null 2>&1; then
