@@ -8,9 +8,31 @@
 
 mkdir .datadog
 
-echo "export DD_SITE=${DD_SITE}"
-echo "export DD_SERVICE=${DD_SERVICE}"
-echo "export DD_API_KEY=${DD_API_KEY}"
+if [ -z "$DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES" ]; then
+  echo "DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES is not set"
+  exit 1
+fi
+
+if [ -z "$DD_SITE" ]; then
+  echo "DD_SITE is not set"
+  exit 1
+else
+  echo "export DD_SITE=${DD_SITE}"
+fi
+
+
+if [ -z "$DD_API_KEY" ]; then
+  echo "DD_API_KEY is not set"
+  exit 1
+else
+  echo "export DD_API_KEY=${DD_API_KEY}"
+fi
+
+# $DD_SERVICE is optional
+if [ -n "$DD_SERVICE" ]; then
+  echo "export DD_SERVICE=${DD_SERVICE}"
+fi
+
 
 url="https://raw.githubusercontent.com/DataDog/test-visibility-install-script/4b0d47cc7308a176c4a2d3f5d629418fc0fd8590/install_test_visibility.sh"  #TODO: Change once we fix the bug with the original install script
 filepath="install_test_visibility.sh"
