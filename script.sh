@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Without echoing export and sed and evaling
-#eval $(DD_SITE="datad0g.com" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_API_KEY="test123" ./script.sh | sed 's/^/export /')
-
-# Echoing export and just evaling
-#eval $(DD_SITE="datad0g.com" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_API_KEY="test123" ./script.sh)
+# Unless explicitly stated otherwise all files in this repository are licensed
+# under the Apache License Version 2.0.
+# This product includes software developed at Datadog (https://www.datadoghq.com/)
+# Copyright 2022-present Datadog, Inc.
 
 mkdir .datadog
 
@@ -49,3 +48,9 @@ fi
 chmod +x ./install_test_visibility.sh
 
 DD_CIVISIBILITY_AUTO_INSTRUMENTATION_PROVIDER="gitlab" ./install_test_visibility.sh | while IFS= read -r line; do echo "export $line"; done
+
+# Without echoing export and sed and evaling
+#eval $(DD_SITE="datad0g.com" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_API_KEY="test123" ./script.sh | sed 's/^/export /')
+
+# Echoing export and just evaling
+#eval $(DD_SITE="datad0g.com" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_API_KEY="test123" ./script.sh)
