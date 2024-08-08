@@ -7,28 +7,28 @@
 
 mkdir .datadog
 
-if [ -z "$DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES" ]; then
-  >&2 echo "DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES is not set"
+if [[ -z "$LANGUAGES" && -z "$DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES" ]]; then
+  >&2 echo "LANGUAGES is not set"
   exit 1
 fi
 
-if [ -z "$DD_SITE" ]; then
-  >&2 echo "DD_SITE is not set"
+if [[ -z "$SITE" && -z "$DD_SITE" ]]; then
+  >&2 echo "SITE is not set"
   exit 1
 else
   echo "export DD_SITE=${DD_SITE}"
 fi
 
 
-if [ -z "$DD_API_KEY" ]; then
-  >&2 echo "DD_API_KEY is not set"
+if [[ -z "$API_KEY" && -z "$DD_API_KEY" ]]; then
+  >&2 echo "API_KEY is not set"
   exit 1
 else
   echo "export DD_API_KEY=${DD_API_KEY}"
 fi
 
-# $DD_SERVICE is optional
-if [ -n "$DD_SERVICE" ]; then
+# $SERVICE is optional
+if [ -n "$SERVICE" ]; then
   echo "export DD_SERVICE=${DD_SERVICE}"
 fi
 
@@ -47,7 +47,7 @@ fi
 
 chmod +x ./install_test_visibility.sh
 
-DD_CIVISIBILITY_AUTO_INSTRUMENTATION_PROVIDER="gitlab" ./install_test_visibility.sh | while IFS= read -r line; do echo "export $line"; done
+DD_CIVISIBILITY_AUTO_INSTRUMENTATION_PROVIDER="gitlab" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="${LANGUAGES}" ./install_test_visibility.sh | while IFS= read -r line; do echo "export $line"; done
 
 # Without echoing export and sed and evaling
 #eval $(DD_SITE="datad0g.com" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_API_KEY="test123" ./script.sh | sed 's/^/export /')
