@@ -27,15 +27,15 @@ The script takes in the following parameters: TODO: Make the parameters like thi
 
 | Name | Description | Required | Default |
 | ---- | ----------- | -------- | ------- |
- | languages | List of languages to be instrumented. Can be either "all" or any of "java", "js", "python", "dotnet" (multiple languages can be specified as a space-separated list). | true | |
- | service | The name of the service or library being tested. | true | |
- | api_key | Datadog API key. Can be found at https://app.datadoghq.com/organization-settings/api-keys | true | |
- | site | Datadog site. See https://docs.datadoghq.com/getting_started/site for more information about sites. | false | datadoghq.com |
- | dotnet-tracer-version | The version of Datadog .NET tracer to use. Defaults to the latest release. | false | |
- | java-tracer-version | The version of Datadog Java tracer to use. Defaults to the latest release. | false | |
- | js-tracer-version | The version of Datadog JS tracer to use. Defaults to the latest release. | false | |
- | python-tracer-version | The version of Datadog Python tracer to use. Defaults to the latest release. | false | |
- | java-instrumented-build-system | If provided, only the specified build systems will be instrumented (allowed values are `gradle` and `maven`). Otherwise every Java process will be instrumented. | false | |
+ | LANGUAGES | List of languages to be instrumented. Can be either "all" or any of "java", "js", "python", "dotnet" (multiple languages can be specified as a space-separated list). | true | |
+ | SERVICE | The name of the service or library being tested. | true | |
+ | API_KEY | Datadog API key. Can be found at https://app.datadoghq.com/organization-settings/api-keys | true | |
+ | SITE | Datadog site. See https://docs.datadoghq.com/getting_started/site for more information about sites. | false | datadoghq.com |
+ | DOTNET_TRACER_VERSION | The version of Datadog .NET tracer to use. Defaults to the latest release. | false | |
+ | JAVA_TRACER_VERSION | The version of Datadog Java tracer to use. Defaults to the latest release. | false | |
+ | JS_TRACER_VERSION | The version of Datadog JS tracer to use. Defaults to the latest release. | false | |
+ | PYTHON_TRACER_VERSION | The version of Datadog Python tracer to use. Defaults to the latest release. | false | |
+ | JAVA_INSTRUMENTED_BUILD_SYSTEM | If provided, only the specified build systems will be instrumented (allowed values are `gradle` and `maven`). Otherwise every Java process will be instrumented. | false | |
 
 ### Additional configuration
 
@@ -45,9 +45,10 @@ Any [additional configuration values](https://docs.datadoghq.com/tracing/trace_c
  test_node:
   image: node:latest
   script:
-  - eval $(DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_SITE="datadoghq.com" DD_API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+  - export DD_API_KEY="YOUR_API_KEY_SECRET"
   - export DD_ENV="staging-tests"
   - export DD_TAGS="layer:api,team:intake,key:value"
+  - eval $(LANGUAGES="js" SITE="datadoghq.com" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
   - npm run test
 ```
 
