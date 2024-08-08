@@ -13,20 +13,19 @@ if [[ -z "$LANGUAGES" && -z "$DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES" ]]; the
 	exit 1
 fi
 
-# $SITE or $DD_SITE are required
-if [[ -z "$SITE" && -z "$DD_SITE" ]]; then
-	>&2 echo "SITE is not set"
-	exit 1
-elif [ -n "$SITE" ]; then
-	echo "export DD_SITE=${SITE}"
-fi
-
 # $API_KEY or $DD_API_KEY are required
 if [[ -z "$API_KEY" && -z "$DD_API_KEY" ]]; then
 	>&2 echo "API_KEY is not set"
 	exit 1
 elif [ -n "$API_KEY" ]; then
 	echo "export DD_API_KEY=${API_KEY}"
+fi
+
+# $SITE or $DD_SITE are optional
+if [[ -z "$SITE" && -z "$DD_SITE" ]]; then
+	echo "export DD_SITE=datadoghq.com"
+elif [ -n "$SITE" ]; then
+	echo "export DD_SITE=${SITE}"
 fi
 
 # $SERVICE or $DD_SERVICE are optional
