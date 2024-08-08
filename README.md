@@ -1,6 +1,6 @@
 # <img height="25" src="logos/test_visibility_logo.png" />  Datadog Test Visibility GitLab Script
 
-Bash script that installs and configures [Datadog Test Visibility](https://docs.datadoghq.com/tests/)for GitLab. 
+Bash script that installs and configures [Datadog Test Visibility](https://docs.datadoghq.com/tests/) for GitLab.
 Supported languages are .NET, Java, Javascript, and Python.
 
 ## About Datadog Test Visibility
