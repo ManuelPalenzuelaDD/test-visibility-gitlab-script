@@ -12,7 +12,7 @@ It can help you investigate and mitigate performance problems and test failures 
 
 1. Execute this script in your GitLab CI's job YAML before running the tests. Set the language, service name, api key and [site](https://docs.datadoghq.com/getting_started/site/) parameters: 
 
-TODO: Change script url (tagged?) as well as be more explicit with DD_SITE and DD_API_KEY
+TODO: Change script url (tagged?)
    ```yaml
    test_node:
     image: node:latest
@@ -23,7 +23,7 @@ TODO: Change script url (tagged?) as well as be more explicit with DD_SITE and D
 
 ## Configuration
 
-The script takes in the following parameters: TODO: Make the parameters like this (shorter)
+The script takes in the following parameters:
 
 | Name | Description | Required | Default |
 | ---- | ----------- | -------- | ------- |
@@ -54,23 +54,7 @@ Any [additional configuration values](https://docs.datadoghq.com/tracing/trace_c
 
 ## Limitations
 
-For security reasons Github [does not allow](https://github.blog/changelog/2023-10-05-github-actions-node_options-is-now-restricted-from-github_env/) actions to alter the `NODE_OPTIONS` environment variable, so you'll have to pass it manually.
-
-### Tracing JS tests (except `vitest`)
-
-If you're running tests with [vitest](https://github.com/vitest-dev/vitest), go to [Tracing vitest tests](#tracing-vitest-tests).
-
-To work around the `NODE_OPTIONS` limitation, the action provides a separate `DD_TRACE_PACKAGE` variable that needs to be appended to `NODE_OPTIONS` manually:
-
-```yaml
-- name: Run tests
-  shell: bash
-  run: npm run test-ci
-  env:
-    NODE_OPTIONS: -r ${{ env.DD_TRACE_PACKAGE }}
-```
-
-### Tracing vitest tests TODO
+### Tracing vitest tests TODO: Why cant we directly export NODE_OPTIONS with --import
 
 ℹ️ This section is only relevant if you're running tests with [vitest](https://github.com/vitest-dev/vitest).
 

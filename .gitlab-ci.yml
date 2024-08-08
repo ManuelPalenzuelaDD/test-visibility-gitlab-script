@@ -2,10 +2,8 @@ default:
   tags:
     - runner:main
 
-test_autoinstrumentation:
-  image: node:latest
-  stage: test
-  cache: []
+gitlab_autoinstrumentation_test:
+  image: adoptopenjdk/openjdk11:latest
   script:
     - eval $(LANGUAGES="java" API_KEY="dummy" bash <(cat script.sh))
     - export LOG_FILE=java-output.log
