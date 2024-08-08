@@ -15,16 +15,16 @@ fi
 if [[ -z "$SITE" && -z "$DD_SITE" ]]; then
   >&2 echo "SITE is not set"
   exit 1
-else
-  echo "export DD_SITE=${DD_SITE}"
+elif [ -n "$SITE" ]; then
+  echo "export DD_SITE=${SITE}"
 fi
 
 
 if [[ -z "$API_KEY" && -z "$DD_API_KEY" ]]; then
   >&2 echo "API_KEY is not set"
   exit 1
-else
-  echo "export DD_API_KEY=${DD_API_KEY}"
+elif [ -n "$API_KEY" ]; then
+  echo "export DD_API_KEY=${API_KEY}"
 fi
 
 # $SERVICE is optional
