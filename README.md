@@ -17,7 +17,7 @@ TODO: Change script url (tagged?) as well as be more explicit with DD_SITE and D
    test_node:
     image: node:latest
     script:
-    - eval $(DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="js" DD_SITE="datadoghq.com" DD_API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+    - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
     - npm run test
    ```
 
