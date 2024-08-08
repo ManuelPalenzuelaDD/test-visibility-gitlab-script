@@ -9,12 +9,12 @@
 mkdir .datadog
 
 if [ -z "$DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES" ]; then
-  echo "DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES is not set"
+  >&2 echo "DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES is not set"
   exit 1
 fi
 
 if [ -z "$DD_SITE" ]; then
-  echo "DD_SITE is not set"
+  >&2 echo "DD_SITE is not set"
   exit 1
 else
   echo "export DD_SITE=${DD_SITE}"
@@ -22,7 +22,7 @@ fi
 
 
 if [ -z "$DD_API_KEY" ]; then
-  echo "DD_API_KEY is not set"
+  >&2 echo "DD_API_KEY is not set"
   exit 1
 else
   echo "export DD_API_KEY=${DD_API_KEY}"
