@@ -12,7 +12,7 @@ It can help you investigate and mitigate performance problems and test failures 
 
 Execute this script in your GitLab CI's job YAML before running the tests. Set the language, service name, api key and [site](https://docs.datadoghq.com/getting_started/site/) parameters:
 
-TODO: Change script url (tagged?)
+TODO: Change script url
    ```yaml
    test_node:
     image: node:latest
