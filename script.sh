@@ -79,4 +79,8 @@ fi
 
 chmod +x ./install_test_visibility.sh
 
-DD_CIVISIBILITY_AUTO_INSTRUMENTATION_PROVIDER="gitlab" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="${LANGUAGES}" ./install_test_visibility.sh | while IFS= read -r line; do echo "export $line"; done
+while IFS='=' read -r name value; do
+  if [[ $name =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+    echo "export $name=$value"
+  fi
+done < <(DD_CIVISIBILITY_AUTO_INSTRUMENTATION_PROVIDER="gitlab" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="${LANGUAGES}" ./install_test_visibility.sh)
