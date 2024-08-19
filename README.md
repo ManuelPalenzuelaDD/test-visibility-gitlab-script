@@ -69,3 +69,5 @@ To work around the `NODE_OPTIONS` limitation, the action provides a separate `DD
 ```
 
 **Important**: `vitest` and `dd-trace` require Node.js>=18.19 or Node.js>=20.6 to work together.
+
+TODO: Make release with script artifact and add sha to release
