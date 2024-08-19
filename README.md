@@ -10,27 +10,26 @@ It can help you investigate and mitigate performance problems and test failures 
 
 ## Usage
 
-Execute this script in your GitLab CI's job YAML before running the tests. Set the language, service name, api key and [site](https://docs.datadoghq.com/getting_started/site/) parameters:
+Execute this script in your GitLab CI's job YAML before running the tests. Pass the languages, api key and [site](https://docs.datadoghq.com/getting_started/site/) environment variables:
 
-TODO: Change script url
  ```yaml
  test_node:
   image: node:latest
   script:
-  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://github.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/releases/latest))
+  - LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" source <(curl -Ls https://github.com/DataDog/test-visibility-gitlab-script/releases/latest/download/script.sh)
   - npm run test
  ```
 
 ## Configuration
 
-The script takes in the following parameters:
+The script takes in the following environment variables:
 
 | Name | Description | Required | Default |
 | ---- | ----------- | -------- | ------- |
  | LANGUAGES | List of languages to be instrumented. Can be either "all" or any of "java", "js", "python", "dotnet" (multiple languages can be specified as a space-separated list). | true | |
- | SERVICE | The name of the service or library being tested. | true | |
  | API_KEY | Datadog API key. Can be found at https://app.datadoghq.com/organization-settings/api-keys | true | |
  | SITE | Datadog site. See https://docs.datadoghq.com/getting_started/site for more information about sites. | false | datadoghq.com |
+ | SERVICE | The name of the service or library being tested. | false | |
  | DOTNET_TRACER_VERSION | The version of Datadog .NET tracer to use. Defaults to the latest release. | false | |
  | JAVA_TRACER_VERSION | The version of Datadog Java tracer to use. Defaults to the latest release. | false | |
  | JS_TRACER_VERSION | The version of Datadog JS tracer to use. Defaults to the latest release. | false | |
@@ -48,7 +47,7 @@ Any [additional configuration values](https://docs.datadoghq.com/tracing/trace_c
   - export DD_API_KEY="YOUR_API_KEY_SECRET"
   - export DD_ENV="staging-tests"
   - export DD_TAGS="layer:api,team:intake,key:value"
-  - eval $(LANGUAGES="js" SITE="datadoghq.com" bash <(curl -s https://github.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/releases/latest))
+  - LANGUAGES="js" SITE="datad0g.com" source <(curl -Ls https://github.com/DataDog/test-visibility-gitlab-script/releases/latest/download/script.sh)
   - npm run test
 ```
 
@@ -58,18 +57,15 @@ Any [additional configuration values](https://docs.datadoghq.com/tracing/trace_c
 
 ℹ️ This section is only relevant if you're running tests with [vitest](https://github.com/vitest-dev/vitest).
 
-To use this script with [vitest](https://vitest.dev/) you need to modify the NODE_OPTIONS environment variable adding the `--import` flag with the value of the `DD_TRACE_ESM_IMPORT` environment variable.
+To use this script with vitest you need to modify the NODE_OPTIONS environment variable adding the `--import` flag with the value of the `DD_TRACE_ESM_IMPORT` environment variable.
 
-TODO: Change script url
  ```yaml
  test_node_vitest:
   image: node:latest
   script:
-  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://github.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/releases/latest))
+  - LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" source <(curl -Ls https://github.com/DataDog/test-visibility-gitlab-script/releases/latest/download/script.sh)
   - export NODE_OPTIONS="$NODE_OPTIONS --import $DD_TRACE_ESM_IMPORT"
   - npm run test
  ```
 
 **Important**: `vitest` and `dd-trace` require Node.js>=18.19 or Node.js>=20.6 to work together.
-
-TODO: Make release with script artifact and add sha to release

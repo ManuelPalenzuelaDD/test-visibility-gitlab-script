@@ -3,7 +3,7 @@
 # Unless explicitly stated otherwise all files in this repository are licensed
 # under the Apache License Version 2.0.
 # This product includes software developed at Datadog (https://www.datadoghq.com/)
-# Copyright 2022-present Datadog, Inc.
+# Copyright 2024-present Datadog, Inc.
 
 mkdir .datadog
 
@@ -18,44 +18,44 @@ if [[ -z "$API_KEY" && -z "$DD_API_KEY" ]]; then
 	>&2 echo "API_KEY is not set"
 	exit 1
 elif [ -n "$API_KEY" ]; then
-	echo "export DD_API_KEY=${API_KEY}"
+	export DD_API_KEY=${API_KEY}
 fi
 
 # $SITE or $DD_SITE are optional
 if [[ -z "$SITE" && -z "$DD_SITE" ]]; then
-	echo "export DD_SITE=datadoghq.com"
+	export DD_SITE=datadoghq.com
 elif [ -n "$SITE" ]; then
-	echo "export DD_SITE=${SITE}"
+	export DD_SITE=${SITE}
 fi
 
 # $SERVICE or $DD_SERVICE are optional
 if [ -n "$SERVICE" ]; then
-	echo "export DD_SERVICE=${SERVICE}"
+	export DD_SERVICE=${SERVICE}
 fi
 
 # $DOTNET_TRACER_VERSION or $DD_SET_TRACER_VERSION_DOTNET are optional
 if [ -n "$DOTNET_TRACER_VERSION" ]; then
-	echo "export DD_SET_TRACER_VERSION_DOTNET=${DOTNET_TRACER_VERSION}"
+	export DD_SET_TRACER_VERSION_DOTNET=${DOTNET_TRACER_VERSION}
 fi
 
 # $JAVA_TRACER_VERSION or $DD_SET_TRACER_VERSION_JAVA are optional
 if [ -n "$JAVA_TRACER_VERSION" ]; then
-	echo "export DD_SET_TRACER_VERSION_JAVA=${JAVA_TRACER_VERSION}"
+	export DD_SET_TRACER_VERSION_JAVA=${JAVA_TRACER_VERSION}
 fi
 
 # $JS_TRACER_VERSION or $DD_SET_TRACER_VERSION_JS are optional
 if [ -n "$JS_TRACER_VERSION" ]; then
-	echo "export DD_SET_TRACER_VERSION_JS=${JS_TRACER_VERSION}"
+	export DD_SET_TRACER_VERSION_JS=${JS_TRACER_VERSION}
 fi
 
 # $PYTHON_TRACER_VERSION or $DD_SET_TRACER_VERSION_PYTHON are optional
 if [ -n "$PYTHON_TRACER_VERSION" ]; then
-	echo "export DD_SET_TRACER_VERSION_PYTHON=${PYTHON_TRACER_VERSION}"
+	export DD_SET_TRACER_VERSION_PYTHON=${PYTHON_TRACER_VERSION}
 fi
 
 # $JAVA_INSTRUMENTED_BUILD_SYSTEM or $DD_INSTRUMENTATION_BUILD_SYSTEM_JAVA are optional
 if [ -n "$JAVA_INSTRUMENTED_BUILD_SYSTEM" ]; then
-	echo "export DD_INSTRUMENTATION_BUILD_SYSTEM_JAVA=${JAVA_INSTRUMENTED_BUILD_SYSTEM}"
+	export DD_INSTRUMENTATION_BUILD_SYSTEM_JAVA=${JAVA_INSTRUMENTED_BUILD_SYSTEM}
 fi
 
 
@@ -81,6 +81,6 @@ chmod +x ./install_test_visibility.sh
 
 while IFS='=' read -r name value; do
   if [[ $name =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
-    echo "export $name=\"$value\""
+    export $name=$value
   fi
 done < <(DD_CIVISIBILITY_AUTO_INSTRUMENTATION_PROVIDER="gitlab" DD_CIVISIBILITY_INSTRUMENTATION_LANGUAGES="${LANGUAGES}" ./install_test_visibility.sh)
