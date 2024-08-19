@@ -13,13 +13,13 @@ It can help you investigate and mitigate performance problems and test failures 
 Execute this script in your GitLab CI's job YAML before running the tests. Set the language, service name, api key and [site](https://docs.datadoghq.com/getting_started/site/) parameters:
 
 TODO: Change script url
-   ```yaml
-   test_node:
-    image: node:latest
-    script:
-    - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
-    - npm run test
-   ```
+ ```yaml
+ test_node:
+  image: node:latest
+  script:
+  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+  - npm run test
+ ```
 
 ## Configuration
 
@@ -54,19 +54,21 @@ Any [additional configuration values](https://docs.datadoghq.com/tracing/trace_c
 
 ## Limitations
 
-### Tracing vitest tests TODO: Why cant we directly export NODE_OPTIONS with --import
+### Tracing vitest tests
 
 ℹ️ This section is only relevant if you're running tests with [vitest](https://github.com/vitest-dev/vitest).
 
-To work around the `NODE_OPTIONS` limitation, the action provides a separate `DD_TRACE_PACKAGE` and `DD_TRACE_ESM_IMPORT` variables that need to be appended to `NODE_OPTIONS` manually:
+To use this script with [vitest](https://vitest.dev/) you need to modify the NODE_OPTIONS environment variable adding the `--import` flag with the value of the `DD_TRACE_ESM_IMPORT` environment variable.
 
-```yaml
-- name: Run tests
-  shell: bash
-  run: npm run test:vitest
-  env:
-    NODE_OPTIONS: -r ${{ env.DD_TRACE_PACKAGE }} --import ${{ env.DD_TRACE_ESM_IMPORT }}
-```
+TODO: Change script url
+ ```yaml
+ test_node_vitest:
+  image: node:latest
+  script:
+  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+  - export NODE_OPTIONS="$NODE_OPTIONS --import $DD_TRACE_ESM_IMPORT"
+  - npm run test
+ ```
 
 **Important**: `vitest` and `dd-trace` require Node.js>=18.19 or Node.js>=20.6 to work together.
 
