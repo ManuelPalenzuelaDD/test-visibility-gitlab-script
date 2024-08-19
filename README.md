@@ -17,7 +17,7 @@ TODO: Change script url
  test_node:
   image: node:latest
   script:
-  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://github.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/releases/latest))
   - npm run test
  ```
 
@@ -48,7 +48,7 @@ Any [additional configuration values](https://docs.datadoghq.com/tracing/trace_c
   - export DD_API_KEY="YOUR_API_KEY_SECRET"
   - export DD_ENV="staging-tests"
   - export DD_TAGS="layer:api,team:intake,key:value"
-  - eval $(LANGUAGES="js" SITE="datadoghq.com" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+  - eval $(LANGUAGES="js" SITE="datadoghq.com" bash <(curl -s https://github.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/releases/latest))
   - npm run test
 ```
 
@@ -65,7 +65,7 @@ TODO: Change script url
  test_node_vitest:
   image: node:latest
   script:
-  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://raw.githubusercontent.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/master/script.sh))
+  - eval $(LANGUAGES="js" SITE="datadoghq.com" API_KEY="YOUR_API_KEY_SECRET" bash <(curl -s https://github.com/ManuelPalenzuelaDD/test-visibility-gitlab-script/releases/latest))
   - export NODE_OPTIONS="$NODE_OPTIONS --import $DD_TRACE_ESM_IMPORT"
   - npm run test
  ```
